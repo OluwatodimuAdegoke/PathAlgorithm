@@ -4,6 +4,7 @@ box = []
 ans = []
 checked = []
 start_and_end = []
+accepted_values = ['x','o','#',' ']
 slength = {"length":0}
 
 class Node():
@@ -23,15 +24,30 @@ class Node():
         else:
             return True
         
+    def connected_point(self,maze):
+        points = []
+        directions = [[1,0],[0,1],[-1,0],[0,-1]]
+        for a in directions:
+            x = a[0]+self.point[0]
+            y = a[1]+self.point[1]
+            try:
+                if maze[x][y] == 'x':
+                    return [(x,y)]
+                elif maze[x][y] == ' ':
+                    points.append((x,y))
+                else:
+                    continue
+            except:
+                continue
+        return points
 
 def main():
     if(check_name()):
         try:
-            fileWrite = open(sys.argv[2],'w')
+
             file = open(sys.argv[1], "r")
             f = file.readlines()
 
-            accepted_values = ['x','o','#',' ']
             row = len(f)
             col = 0
             for a in f:
@@ -53,8 +69,6 @@ def main():
         except FileNotFoundError:
             sys.exit("File does not exist")
         else:
-
-
             start, end = get_points(maze)
             print_maze(maze)
             soln = search(maze,start,end)
@@ -65,8 +79,8 @@ def main():
             file.close()
 
 def check_name():
-    if len(sys.argv) == 3:
-        if sys.argv[1].endswith(".txt") and sys.argv[2].endswith(".txt"):
+    if len(sys.argv) == 2:
+        if sys.argv[1].endswith(".txt"):
             return True
         else:
             sys.exit("Not a txt file")
@@ -106,8 +120,10 @@ def search(maze,start,end):
         checked.append(now.point)
 
         #have a way to know the parents of each node
-        points = get_connectedpoint(maze,now.point)
+        points = now.connected_point(maze)
         for i in points:
+            if i in checked or any(node.point == i for node in box):
+                    continue
             box.append(Node(i,parent = now,check=True))
 
         # print("Checked",checked)      
@@ -120,27 +136,6 @@ def search(maze,start,end):
         return end
     else:
         sys.exit("No Solution Found")
-
-
-def get_connectedpoint(maze,point):
-    points = []
-    directions = [[1,0],[0,1],[-1,0],[0,-1]]
-    for a in directions:
-        x = a[0]+point[0]
-        y = a[1]+point[1]
-        try:
-            if (x,y) in checked or any(node.point == (x,y) for node in box):
-                continue
-            elif maze[x][y] == 'x':
-                return [(x,y)]
-            elif maze[x][y] == ' ':
-                points.append((x,y))
-            else:
-                continue
-        except:
-            continue
-
-    return points
 
 def get_ans(end,row,col,maze):
     temp = end.parent
