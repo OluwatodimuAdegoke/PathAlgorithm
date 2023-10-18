@@ -1,9 +1,9 @@
 import sys
+import copy
 from node import Node
 
 
 box = []
-ans = []
 checked = []
 start_and_end = []
 accepted_values = ['x','o','#',' ']
@@ -34,13 +34,10 @@ def main():
         else:
 
             get_points(maze)
-            print_maze(maze)
+            oldmaze = copy.deepcopy(maze)
             soln = search(maze,start_and_end[0],start_and_end[1])
             get_ans(soln,row,col,maze)
-            print()
-            print(f"## {sys.argv[2]} Solution ##")
-            print()
-            print_maze(maze)
+            print_maze(oldmaze,maze,col)
             print("Solution Length: ",slength["length"])
 
             file.close()
@@ -83,7 +80,8 @@ def get_points(maze):
     else:
         start_and_end.append(start)
         start_and_end.append(end)
-    
+
+#Search for the end node
 def search(maze,start,end):
 
     box.append(start)
@@ -118,8 +116,10 @@ def search(maze,start,end):
     else:
         sys.exit("No Solution Found")
 
+#Get the points in the solution
 def get_ans(end,row,col,maze):
     temp = end.parent
+    ans = []
     while temp.check == True:
         ans.append(temp.point)
         temp = temp.parent
@@ -131,9 +131,15 @@ def get_ans(end,row,col,maze):
                 elif not any( node.point == (i,j)  for node in start_and_end):
                     maze[i][j] = "▲"
 
-def print_maze(maze):
-    for a in maze:
-        for b in a:
+def print_maze(oldmaze, maze ,col):
+    print()
+    sp = max(0,col-6)
+    print("-"*sp,f"{sys.argv[2]} Solution","-"*sp)
+    for i,j in zip(oldmaze,maze):
+        for a in i:
+            print(a,end="")
+        print("  ",end="")
+        for b in j:
             print(b,end="")
         print()
 

@@ -1,5 +1,3 @@
-
-
 class Node():
     def __init__(self,point,parent = None,check = False):
         self.point = point
