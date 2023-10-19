@@ -1,14 +1,12 @@
 import sys
 import copy
 from node import Node
+from boxes import Boxes
+from checkedboxes import Checked
 
-
-box = []
-checked = []
+check = Checked()
 start_and_end = []
 accepted_values = ['x','o','#',' ']
-slength = 0
-
 
 def main():
     if(check_name()):
@@ -38,7 +36,7 @@ def main():
             soln = search(maze,start_and_end[0],start_and_end[1],type)
             get_ans(soln,row,col,maze)
             print_maze(oldmaze,maze,col)
-            print("Solution Length: ",slength)
+            print("Solution Length: ",check.length)
 
             file.close()
 
@@ -86,26 +84,30 @@ def get_points(maze):
 #Search for the end node
 def search(maze,start,end,type):
     global slength
-    box.append(start)
+
+    box = Boxes()
+
+    box.add(start)
+
     now = start
-    while not now == end and len(box) != 0:
+    while not now == end and box.length != 0:
 
         #change this to check the method from BFS to DFS
         if(type == "DFS" ):
-            now = box.pop()
+            now = box.remove("last")
         else:
-            now = box.pop(0)
+            now = box.remove("first")
 
-        slength += 1
+        #add the number of solutions to boxes
         # print("Box is",box,"now :",now.point)
-        checked.append(now.point)
+        check.add(now.point)
 
         #have a way to know the parents of each node
         points = now.connected_point(maze)
         for i in points:
-            if i in checked or any(node.point == i for node in box):
+            if i in check.box or any(node.point == i for node in box.box):
                     continue
-            box.append(Node(i,parent = now,check=True))
+            box.add(Node(i,parent = now,check=True))
 
         # print("Checked",checked)
         # print("Box here: ",box,"now: ",now.point)
@@ -127,7 +129,7 @@ def get_ans(end,row,col,maze):
         temp = temp.parent
     for i in range(0,row):
         for j in range(0,col):
-            if (i,j) in checked:
+            if (i,j) in check.box:
                 if (i,j) in ans:
                     maze[i][j] = "█"
                 elif not any( node.point == (i,j)  for node in start_and_end):
