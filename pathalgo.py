@@ -32,9 +32,10 @@ def main():
 
             get_points(maze)
             oldmaze = copy.deepcopy(maze)
-            type = sys.argv[2]
-            soln = search(maze,start_and_end[0],start_and_end[1],type)
+
+            soln = search(maze,start_and_end[0],start_and_end[1],sys.argv[2])
             get_ans(soln,row,col,maze)
+
             print_maze(oldmaze,maze,col)
             print("Solution Length: ",check.length)
 
@@ -54,6 +55,7 @@ def format_maze(f, row, col):
                 maze[i][j] = "#"
     return maze
 
+#Checks the argument and the name
 def check_name():
     if len(sys.argv) == 3:
         if sys.argv[1].endswith(".txt") and (sys.argv[2] == "DFS" or sys.argv[2] == "BFS"):
@@ -136,6 +138,7 @@ def get_ans(end,row,col,maze):
                 elif not any( node.point == (i,j)  for node in start_and_end):
                     maze[i][j] = "▲"
 
+#Prints the original and solved maze
 def print_maze(oldmaze, maze ,col):
     print()
     sp = max(0,col-6)
