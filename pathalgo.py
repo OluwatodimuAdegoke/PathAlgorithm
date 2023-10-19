@@ -7,7 +7,7 @@ box = []
 checked = []
 start_and_end = []
 accepted_values = ['x','o','#',' ']
-slength = {"length":0}
+slength = 0
 
 
 def main():
@@ -31,14 +31,14 @@ def main():
             sys.exit("File does not exist")
 
         else:
-
+            global slength
             get_points(maze)
             oldmaze = copy.deepcopy(maze)
             type = sys.argv[2]
             soln = search(maze,start_and_end[0],start_and_end[1],type)
             get_ans(soln,row,col,maze)
             print_maze(oldmaze,maze,col)
-            print("Solution Length: ",slength["length"])
+            print("Solution Length: ",slength)
 
             file.close()
 
@@ -85,7 +85,7 @@ def get_points(maze):
 
 #Search for the end node
 def search(maze,start,end,type):
-
+    global slength
     box.append(start)
     now = start
     while not now == end and len(box) != 0:
@@ -96,7 +96,7 @@ def search(maze,start,end,type):
         else:
             now = box.pop(0)
 
-        slength["length"] += 1
+        slength += 1
         # print("Box is",box,"now :",now.point)
         checked.append(now.point)
 
