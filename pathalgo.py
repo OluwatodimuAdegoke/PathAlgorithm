@@ -6,7 +6,7 @@ from checkedboxes import Checked
 
 check = Checked()
 start_and_end = []
-accepted_values = ['x','o','#',' ']
+
 
 def main():
     if(check_name()):
@@ -29,7 +29,7 @@ def main():
             sys.exit("File does not exist")
 
         else:
-            global slength
+
             get_points(maze)
             oldmaze = copy.deepcopy(maze)
             type = sys.argv[2]
@@ -41,6 +41,7 @@ def main():
             file.close()
 
 def format_maze(f, row, col):
+    accepted_values = ['x','o','#',' ']
     maze = [[0 for i in range(col)] for j in range(row)]
     for i in range(0,row):
         for j in range(0,col):

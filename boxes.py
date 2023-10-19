@@ -1,5 +1,5 @@
 from checkedboxes import Checked
-
+#Contains the class that houses nodes to be checked
 class Boxes(Checked):
 
     def remove(self,pos):

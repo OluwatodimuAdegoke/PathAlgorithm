@@ -1,3 +1,4 @@
+#Contains the class that houses the nodes that has been checked
 class Checked:
 
     def __init__(self):
