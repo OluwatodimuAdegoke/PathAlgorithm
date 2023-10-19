@@ -36,9 +36,13 @@ To use this Python program to demonstrate DFS and BFS algorithms, follow these s
    ```bash
    git clone [repository URL]
 2. Change the working directory to the project folder:
+
+   ```bash
     cd file-python
 
 3. Run the python program:
+
+   ```bash
     python pathalgo.py maze.txt (DFS or BFS)
 
 ## Design Choices
