@@ -1,10 +1,10 @@
 import sys
 import copy
 from node import Node
-from boxes import Boxes
-from checkedboxes import Checked
+#from boxes import Boxes
+from Boxes import Boxes
 
-check = Checked()
+checked = Boxes()
 start_and_end = []
 
 
@@ -37,7 +37,7 @@ def main():
             get_ans(soln,row,col,maze)
 
             print_maze(oldmaze,maze,col)
-            print("Solution Length: ",check.length)
+            print("Solution Length: ",checked.length)
 
             file.close()
 
@@ -103,12 +103,12 @@ def search(maze,start,end,type):
 
         #add the number of solutions to boxes
         # print("Box is",box,"now :",now.point)
-        check.add(now.point)
+        checked.add(now.point)
 
         #have a way to know the parents of each node
         points = now.connected_point(maze)
         for i in points:
-            if i in check.box or any(node.point == i for node in box.box):
+            if i in checked.box or any(node.point == i for node in box.box):
                     continue
             box.add(Node(i,parent = now,check=True))
 
@@ -132,7 +132,7 @@ def get_ans(end,row,col,maze):
         temp = temp.parent
     for i in range(0,row):
         for j in range(0,col):
-            if (i,j) in check.box:
+            if (i,j) in checked.box:
                 if (i,j) in ans:
                     maze[i][j] = "█"
                 elif not any( node.point == (i,j)  for node in start_and_end):
