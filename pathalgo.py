@@ -25,8 +25,7 @@ def main():
                     col = len(a) - 1
 
             #Initialize the maze
-            maze = [[0 for i in range(col)] for j in range(row)]
-            format_maze(f, row, col, maze)
+            maze = format_maze(f, row, col)
 
         except FileNotFoundError:
             sys.exit("File does not exist")
@@ -42,7 +41,8 @@ def main():
 
             file.close()
 
-def format_maze(f, row, col, maze):
+def format_maze(f, row, col):
+    maze = [[0 for i in range(col)] for j in range(row)]
     for i in range(0,row):
         for j in range(0,col):
             try:
@@ -52,6 +52,7 @@ def format_maze(f, row, col, maze):
                     raise ValueError
             except:
                 maze[i][j] = "#"
+    return maze
 
 def check_name():
     if len(sys.argv) == 3:
@@ -76,7 +77,7 @@ def get_points(maze):
             c += 1
 
     if c != 2:
-        sys.exit("No start or end point")
+        sys.exit("Start and End point must be one")
     else:
         start_and_end.append(start)
         start_and_end.append(end)
