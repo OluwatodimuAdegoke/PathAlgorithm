@@ -46,3 +46,4 @@ To use this Python program to demonstrate DFS and BFS algorithms, follow these s
 The project is designed to be a simple and illustrative demonstration of DFS and BFS algorithms. The graph is intentionally small to keep the code concise and focused on the algorithm's logic.
 
 The program provides both DFS and BFS implementations to showcase the differences between these two traversal methods.
+
