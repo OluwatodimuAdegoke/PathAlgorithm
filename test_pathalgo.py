@@ -19,11 +19,12 @@ def test_get_points():
     amaze = [['#','#','#','#','#'],['#','x',' ',' ','#'],['#',' ',' ','#','#'],['#',' ',' ','o','#'],['#','o','#','#','#']]
     with pytest.raises(SystemExit):
         assert get_points(amaze)
-    
+
 def test_search():
     tmaze = [['#','#','#','#','#'],['#','x',' ',' ','#'],['#','#','#','#','#'],['#',' ',' ',' ','#'],['#','o','#','#','#']]
     start = Node((4,1))
     end = Node((1,1))
     with pytest.raises(SystemExit):
-        assert search(tmaze,start,end)
-    
+        assert search(tmaze,start,end,"DFS")
+    with pytest.raises(SystemExit):
+        assert search(tmaze,start,end,"BFS")

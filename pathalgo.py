@@ -34,7 +34,8 @@ def main():
 
             get_points(maze)
             oldmaze = copy.deepcopy(maze)
-            soln = search(maze,start_and_end[0],start_and_end[1])
+            type = sys.argv[2]
+            soln = search(maze,start_and_end[0],start_and_end[1],type)
             get_ans(soln,row,col,maze)
             print_maze(oldmaze,maze,col)
             print("Solution Length: ",slength["length"])
@@ -48,7 +49,7 @@ def format_maze(f, row, col):
             try:
                 if f[i][j] in accepted_values:
                     maze[i][j] = f[i][j]
-                else: 
+                else:
                     raise ValueError
             except:
                 maze[i][j] = "#"
@@ -83,14 +84,14 @@ def get_points(maze):
         start_and_end.append(end)
 
 #Search for the end node
-def search(maze,start,end):
+def search(maze,start,end,type):
 
     box.append(start)
     now = start
     while not now == end and len(box) != 0:
 
         #change this to check the method from BFS to DFS
-        if(sys.argv[2] == "DFS" ):
+        if(type == "DFS" ):
             now = box.pop()
         else:
             now = box.pop(0)
@@ -106,7 +107,7 @@ def search(maze,start,end):
                     continue
             box.append(Node(i,parent = now,check=True))
 
-        # print("Checked",checked)      
+        # print("Checked",checked)
         # print("Box here: ",box,"now: ",now.point)
 
     if now == end:
