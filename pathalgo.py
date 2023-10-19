@@ -41,6 +41,7 @@ def main():
 
             file.close()
 
+
 def format_maze(f, row, col):
     accepted_values = ['x','o','#',' ']
     maze = [[0 for i in range(col)] for j in range(row)]
@@ -55,6 +56,7 @@ def format_maze(f, row, col):
                 maze[i][j] = "#"
     return maze
 
+
 #Checks the argument and the name
 def check_name():
     if len(sys.argv) == 3:
@@ -64,6 +66,7 @@ def check_name():
             sys.exit("Not a txt file")
     else:
         sys.exit("Command line arguments not correct: (pathalgo.py) (maze file) (DFS or BFS)")
+
 
 #Get Start and End Points
 def get_points(maze):
@@ -83,6 +86,7 @@ def get_points(maze):
     else:
         start_and_end.append(start)
         start_and_end.append(end)
+
 
 #Search for the end node
 def search(maze,start,end,type):
@@ -137,6 +141,7 @@ def get_ans(end,row,col,maze):
                     maze[i][j] = "█"
                 elif not any( node.point == (i,j)  for node in start_and_end):
                     maze[i][j] = "▲"
+
 
 #Prints the original and solved maze
 def print_maze(oldmaze, maze ,col):
