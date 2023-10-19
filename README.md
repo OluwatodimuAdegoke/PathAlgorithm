@@ -22,10 +22,7 @@ Breadth-First Search is another algorithm for graph traversal that systematicall
 - `node.py`: This file defines the `Node` class, which is used to creat different nodes and keep track of its parent
 - `maze.txt`: This file contains the maze used to test the program. Different type of maze can be used as long as it follows the specified rule
 - `test_pathalgo.py`: This file contains the program that is used to test different section of the main program using pytest module
-- `boxes.py`: This file contains the class that houses the nodes that are yet to be checked
-- `checkedboxes.py`: This file contains the class the houses the nodes that have been checked by the algorithm
-
-
+- `Boxes.py`: This file contains the class that houses the nodes
 
 ## Usage
 
